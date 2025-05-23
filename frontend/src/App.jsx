@@ -1,13 +1,58 @@
 import { useState } from 'react'
-import './App.css'
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Products from './pages/Products';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentView, setCurrentView] = useState('register');
 
-  return (
-    <>
-    </>
-  )
+  const handleSwitchToLogin = () => {
+    setCurrentView('login');
+  };
+
+  const handleSwitchToRegister = () => {
+    setCurrentView('register');
+  };
+
+  const handleRegisterSuccess = () => {
+    setCurrentView('login');
+  };
+
+  const handleLoginSuccess = () => {
+    setCurrentView('products');
+  };
+
+  const handleLogOut = () => {
+    setCurrentView('login');
+  };
+
+  switch (currentView) {
+    case 'register':
+      return (
+        <Register 
+          onSwitchToLogin={handleSwitchToLogin} 
+          onRegisterSuccess={handleRegisterSuccess} 
+        />
+      );
+    case 'login':
+      return (
+        <Login 
+          onSwitchToRegister={handleSwitchToRegister} 
+          onLoginSuccess={handleLoginSuccess} 
+        />
+      );
+    case 'products':
+      return (
+        <Products onLogOut={handleLogOut} />
+      );
+    default:
+      return (
+        <Register 
+          onSwitchToLogin={handleSwitchToLogin} 
+          onRegisterSuccess={handleRegisterSuccess}
+        />
+      );
+  }
 }
 
-export default App
+export default App;
