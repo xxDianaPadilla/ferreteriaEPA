@@ -15,12 +15,13 @@ brandsController.getAllBrands = async (req, res) => {
     res.json(brands)
 } 
 
-brandsController.insertBrands = async (req, res) => {
+brandsController.insertBrands = async (req, res) =>{
     try {
-        const {name, year, slogan} = req.body;
+        const { name, year, slogan} = req.body;
+        
         let imageURL = "";
-
-        if(req.file){
+        
+        if (req.file) {
             const result = await cloudinary.uploader.upload(
                 req.file.path,
                 {
@@ -30,36 +31,55 @@ brandsController.insertBrands = async (req, res) => {
             );
             imageURL = result.secure_url;
         }
-
-        const newBrand = new brandsModel({name, year, slogan, image: imageURL});
-        await newBrand.save();
-
-        res.json({message: "Brand saved"});
+        
+        const newBrand = await brandsModel.create({
+            name,
+            year,
+            slogan,
+            image: imageURL
+        });
+        
+        res.status(201).json(newBrand);
     } catch (error) {
-        console.error("Error inserting brand:", error);
-        res.status(500).json({message: "Error saving brand", error});
+        res.status(500).json({ error: error.message });
     }
 };
 
-brandsController.putBrands = async (req, res) => {
-    const {name, year, slogan} = req.body;
-
-    let imageURL = "";
-
-    if(req.file){
-        const result = await cloudinary.uploader.upload(
-            req.file.path,
-            {
-                folder: "public",
-                allowed_formats: ["jpg", "png", "jpeg"]
-            }
-        )
-        imageURL = result.secure_url
+brandsController.putBrands = async (req, res) =>{
+    try {
+        const { name, year, slogan } = req.body;
+        
+        const updateData = { 
+            name, 
+            year, 
+            slogan 
+        };
+        
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(
+                req.file.path,
+                {
+                    folder: "public",
+                    allowed_formats: ["jpg", "png", "jpeg"]
+                }
+            );
+            updateData.image = result.secure_url;
+        }
+        
+        const updatedBrand = await brandsModel.findByIdAndUpdate(
+            req.params.id, 
+            updateData, 
+            { new: true }
+        );
+        
+        if (!updatedBrand) {
+            return res.status(404).json({ error: 'Producto no encontrado' });
+        }
+        
+        res.json(updatedBrand);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-
-    await brandsModel.findByIdAndUpdate(req.params.id, {name, year, slogan, image: imageURL}, {new: true});
-
-    res.json({message: "Brand updated"});
 };
 
 brandsController.deleteBrands = async (req, res) =>{

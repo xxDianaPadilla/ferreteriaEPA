@@ -4,7 +4,7 @@ import multer from "multer";
 
 const router = express.Router();
 
-const upload = multer({dest: "public/"})
+const upload = multer({dest: "brands/"})
 
 router.route("/")
 .get(brandsController.getAllBrands)

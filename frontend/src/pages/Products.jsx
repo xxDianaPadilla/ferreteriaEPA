@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Plus, Search, LogOut, Package, AlertCircle } from 'lucide-react';
+import { Plus, Search, Package, AlertCircle } from 'lucide-react';
 import ProductCard from "../components/ProductCard";
+import Header from '../components/Header';
 
-const Products = ({ onLogOut }) => {
+const Products = ({ onLogOut, onNavigateToBrands }) => {
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -194,22 +195,7 @@ const Products = ({ onLogOut }) => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <header className="bg-white shadow-sm border-b">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-16">
-                        <div className="flex items-center gap-3">
-                            <h1 className="text-2xl font-bold text-blue-900">Ferretería EPA</h1>
-                        </div>
-                        <button
-                            onClick={onLogOut}
-                            className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
-                        >
-                            <LogOut className="w-5 h-5" />
-                            Cerrar Sesión
-                        </button>
-                    </div>
-                </div>
-            </header>
+            <Header onLogOut={onLogOut} onNavigateToProducts={() => {}} onNavigateToBrands={(onNavigateToBrands)} currentPage={"products"}/>
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
