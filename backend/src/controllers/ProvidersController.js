@@ -15,47 +15,74 @@ providersController.getAllProviders = async (req, res) => {
     res.json(providers)
 } 
 
-providersController.insertProviders = async (req, res) => {
-    const {name, telephone} = req.body;
-
-    let imageURL = "";
-
-    if(req.file){
-        const result = await cloudinary.uploader.upload(
-            req.file.path,
-            {
-                folder: "public",
-                allowed_formats: ["jpg", "png", "jpeg"]
-            }
-        )
-        imageURL = result.secure_url
+providersController.insertProviders = async (req, res) =>{
+    try {
+        const { name, telephone} = req.body;
+        
+        let imageURL = "";
+        
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(
+                req.file.path,
+                {
+                    folder: "public",
+                    allowed_formats: ["jpg", "png", "jpeg"]
+                }
+            );
+            imageURL = result.secure_url;
+        }
+        
+        const newProvider = await providersModel.create({
+            name,
+            telephone,
+            image: imageURL
+        });
+        
+        res.status(201).json(newProvider);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-
-    const newProvider = new providersModel({name, telephone, image: imageURL})
-    newProvider.save()
-
-    res.json({message: "Provider saved"});
 };
 
-providersController.putProviders = async (req, res) => {
-    const {name, telephone} = req.body;
-
-    let imageURL = "";
-
-    if(req.file){
-        const result = await cloudinary.uploader.upload(
-            req.file.path,
-            {
-                folder: "public",
-                allowed_formats: ["jpg", "png", "jpeg"]
-            }
-        )
-        imageURL = result.secure_url
+providersController.putProviders = async (req, res) =>{
+    try {
+        const { name, telephone } = req.body;
+        
+        const updateData = { 
+            name, 
+            telephone 
+        };
+        
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(
+                req.file.path,
+                {
+                    folder: "public",
+                    allowed_formats: ["jpg", "png", "jpeg"]
+                }
+            );
+            updateData.image = result.secure_url;
+        }
+        
+        const updatedProvider = await providersModel.findByIdAndUpdate(
+            req.params.id, 
+            updateData, 
+            { new: true }
+        );
+        
+        if (!updatedProvider) {
+            return res.status(404).json({ error: 'Proveedor no encontrado' });
+        }
+        
+        res.json(updatedProvider);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
+};
 
-    await providersModel.findByIdAndUpdate(req.params.id, {name, telephone, image: imageURL}, {new: true});
-
-    res.json({message: "Provider updated"});
+providersController.deleteProviders = async (req, res) =>{
+    const deleteProvider = await providersModel.findByIdAndDelete(req.params.id);
+    res.json({message: "Provider deleted"});
 };
 
 export default providersController;

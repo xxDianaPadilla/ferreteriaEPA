@@ -1,6 +1,6 @@
-import { LogOut, Package, Tag } from 'lucide-react';
+import { LogOut, Package, Tag, Truck } from 'lucide-react';
 
-const Header = ({ onLogOut, onNavigateToProducts, onNavigateToBrands, currentPage }) => {
+const Header = ({ onLogOut, onNavigateToProducts, onNavigateToBrands, onNavigateToProviders, currentPage }) => {
     return (
         <header className="bg-white shadow-sm border-b">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,8 +12,8 @@ const Header = ({ onLogOut, onNavigateToProducts, onNavigateToBrands, currentPag
                             <button
                                 onClick={onNavigateToProducts}
                                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200 ${currentPage === 'products'
-                                        ? 'bg-blue-100 text-blue-700'
-                                        : 'text-gray-600 hover:bg-gray-100'
+                                    ? 'bg-blue-100 text-blue-700'
+                                    : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
                                 <Package className="w-5 h-5" />
@@ -23,12 +23,23 @@ const Header = ({ onLogOut, onNavigateToProducts, onNavigateToBrands, currentPag
                             <button
                                 onClick={onNavigateToBrands}
                                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200 ${currentPage === 'brands'
-                                        ? 'bg-blue-100 text-blue-700'
-                                        : 'text-gray-600 hover:bg-gray-100'
+                                    ? 'bg-blue-100 text-blue-700'
+                                    : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
                                 <Tag className="w-5 h-5" />
                                 Marcas
+                            </button>
+
+                            <button
+                                onClick={onNavigateToProviders}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200 ${currentPage === 'providers'
+                                    ? 'bg-blue-100 text-blue-700'
+                                    : 'text-gray-600 hover:bg-gray-100'
+                                    }`}
+                            >
+                                <Truck className="w-5 h-5" />
+                                Proveedores
                             </button>
                         </nav>
                     </div>

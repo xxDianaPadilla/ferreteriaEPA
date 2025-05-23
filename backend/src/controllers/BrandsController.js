@@ -73,7 +73,7 @@ brandsController.putBrands = async (req, res) =>{
         );
         
         if (!updatedBrand) {
-            return res.status(404).json({ error: 'Producto no encontrado' });
+            return res.status(404).json({ error: 'Marca no encontrado' });
         }
         
         res.json(updatedBrand);

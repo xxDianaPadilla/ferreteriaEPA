@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import BrandCard from '../components/BrandCard';
 import BrandModal from '../components/BrandModal';
 
-const Brands = ({ onLogOut, onNavigateToProducts }) => {
+const Brands = ({ onLogOut, onNavigateToProducts, onNavigateToProviders }) => {
     const [brands, setBrands] = useState([]);
     const [filteredBrands, setFilteredBrands] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -110,6 +110,7 @@ const Brands = ({ onLogOut, onNavigateToProducts }) => {
                 onLogOut={onLogOut}
                 onNavigateToProducts={onNavigateToProducts}
                 onNavigateToBrands={() => { }}
+                onNavigateToProviders={onNavigateToProviders}
                 currentPage="brands"
             />
 

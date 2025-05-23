@@ -3,6 +3,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Products from './pages/Products';
 import Brands from './pages/Brands';
+import Providers from './pages/Providers';
 
 function App() {
   const [currentView, setCurrentView] = useState('register');
@@ -35,6 +36,10 @@ function App() {
     setCurrentView('brands');
   }
 
+  const handleNavigateToProviders = () => {
+    setCurrentView('providers');
+  }
+
   switch (currentView) {
     case 'register':
       return (
@@ -54,14 +59,23 @@ function App() {
       return (
         <Products
           onLogOut={handleLogOut}
-          onNavigateToBrands={handleNavigateToBrands} />
+          onNavigateToBrands={handleNavigateToBrands}
+          onNavigateToProviders={handleNavigateToProviders} />
       );
     case 'brands':
       return (
         <Brands
           onLogOut={handleLogOut}
-          onNavigateToProducts={handleNavigateToProducts} />
+          onNavigateToProducts={handleNavigateToProducts}
+          onNavigateToProviders={handleNavigateToProviders} />
       );
+    case 'providers':
+      return (
+        <Providers
+          onLogOut={handleLogOut}
+          onNavigateToProducts={handleNavigateToProducts}
+          onNavigateToBrands={handleNavigateToBrands} />
+      )
     default:
       return (
         <Register

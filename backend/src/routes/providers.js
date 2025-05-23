@@ -10,4 +10,8 @@ router.route("/")
 .get(providersController.getAllProviders)
 .post(upload.single("image"), providersController.insertProviders);
 
+router.route("/:id")
+.put(upload.single("image"), providersController.putProviders)
+.delete(providersController.deleteProviders);
+
 export default router;

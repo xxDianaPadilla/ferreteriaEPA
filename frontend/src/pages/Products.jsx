@@ -3,7 +3,7 @@ import { Plus, Search, Package, AlertCircle } from 'lucide-react';
 import ProductCard from "../components/ProductCard";
 import Header from '../components/Header';
 
-const Products = ({ onLogOut, onNavigateToBrands }) => {
+const Products = ({ onLogOut, onNavigateToBrands, onNavigateToProviders }) => {
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -195,7 +195,7 @@ const Products = ({ onLogOut, onNavigateToBrands }) => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Header onLogOut={onLogOut} onNavigateToProducts={() => {}} onNavigateToBrands={(onNavigateToBrands)} currentPage={"products"}/>
+            <Header onLogOut={onLogOut} onNavigateToProducts={() => {}} onNavigateToBrands={(onNavigateToBrands)} onNavigateToProviders={onNavigateToProviders} currentPage={"products"}/>
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
