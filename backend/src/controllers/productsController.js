@@ -1,6 +1,14 @@
-const productsController = {};
-
 import productsModel from "../models/Products.js";
+import {v2 as cloudinary} from "cloudinary";
+import { config } from "../config.js";
+
+cloudinary.config({
+    cloud_name: config.cloudinary.cloud_name,
+    api_key: config.cloudinary.cloudinary_api_key,
+    api_secret: config.cloudinary.cloudinary_api_secret
+});
+
+const productsController = {};
 
 productsController.getProducts = async (req, res) =>{
     const products = await productsModel.find();
@@ -8,14 +16,34 @@ productsController.getProducts = async (req, res) =>{
 };
 
 productsController.createProducts = async (req, res) =>{
-    const {name, description, price, stock} = req.body;
-
-    const newProduct = new productsModel({
-        name, description, price, stock
-    });
-
-    await newProduct.save();
-    res.json({message: "Producto guardado"});
+    try {
+        const { name, description, price, stock } = req.body;
+        
+        let imageURL = "";
+        
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(
+                req.file.path,
+                {
+                    folder: "public",
+                    allowed_formats: ["jpg", "png", "jpeg"]
+                }
+            );
+            imageURL = result.secure_url;
+        }
+        
+        const newProduct = await productsModel.create({
+            name,
+            description,
+            price: parseFloat(price),
+            stock: parseInt(stock),
+            image: imageURL
+        });
+        
+        res.status(201).json(newProduct);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 productsController.deleteProducts = async (req, res) =>{
@@ -24,11 +52,41 @@ productsController.deleteProducts = async (req, res) =>{
 };
 
 productsController.updateProducts = async (req, res) =>{
-    const {name, description, price, stock} = req.body;
-
-    const updatedProduct = await productsModel.findByIdAndUpdate(req.params.id, {name, description, price, stock}, {new: true});
-    
-    res,json({message: "Producto actualizado"});
+    try {
+        const { name, description, price, stock } = req.body;
+        
+        const updateData = { 
+            name, 
+            description, 
+            price: parseFloat(price), 
+            stock: parseInt(stock) 
+        };
+        
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(
+                req.file.path,
+                {
+                    folder: "public",
+                    allowed_formats: ["jpg", "png", "jpeg"]
+                }
+            );
+            updateData.image = result.secure_url;
+        }
+        
+        const updatedProduct = await productsModel.findByIdAndUpdate(
+            req.params.id, 
+            updateData, 
+            { new: true }
+        );
+        
+        if (!updatedProduct) {
+            return res.status(404).json({ error: 'Producto no encontrado' });
+        }
+        
+        res.json(updatedProduct);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 productsController.getProduct = async (req, res) =>{

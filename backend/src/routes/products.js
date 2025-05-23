@@ -1,15 +1,18 @@
 import express from "express";
+import productsController from "../controllers/productsController.js";
+import multer from "multer";
 
 const router = express.Router();
-import productsController from "../controllers/productsController.js";
+
+const upload = multer({dest: "products/"})
 
 router.route("/")
 .get(productsController.getProducts)
-.post(productsController.createProducts);
+.post(upload.single("image"), productsController.createProducts);
 
 router.route("/:id")
 .get(productsController.getProduct)
-.put(productsController.updateProducts)
+.put(upload.single("image"), productsController.updateProducts)
 .delete(productsController.deleteProducts);
 
 export default router;
