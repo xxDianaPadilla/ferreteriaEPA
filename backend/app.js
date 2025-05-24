@@ -12,7 +12,7 @@ import recoveryPasswordRoutes from "./src/routes/recoveryPassword.js";
 import providersRoutes from "./src/routes/providers.js";
 import brandsRoutes from "./src/routes/brands.js";
 import cookieParser from "cookie-parser";
-import { validateAuthToken } from './src/middlewares/validateAuthToken.js';
+import authRoutes from './src/routes/authRoutes.js';
 import cors from "cors";
 
 const app = express();
@@ -29,15 +29,15 @@ app.use(cookieParser());
 
 app.use("/api/products", productsRoutes);
 app.use("/api/clients", clientsRoutes);
-app.use("/api/employees", validateAuthToken(["admin", "employee"]), employeesRoutes);
+app.use("/api/employees", employeesRoutes);
 app.use("/api/branches", branchesRoutes);
 app.use("/api/reviews", reviewsRoutes);
-app.use("/api/registerEmployee", validateAuthToken(["admin"]), registerEmployeeRoutes);
+app.use("/api/registerEmployee", registerEmployeeRoutes);
 app.use("/api/login", loginRoutes);
-app.use("/api/logout", logoutRoutes);
 app.use("/api/registerClients", registerClientsRoutes);
 app.use("/api/recoveryPassword", recoveryPasswordRoutes);
 app.use("/api/providers", providersRoutes);
 app.use("/api/brands", brandsRoutes);
+app.use("/api", authRoutes);
 
 export default app;

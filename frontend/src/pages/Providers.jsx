@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import ProviderCard from '../components/ProviderCard';
 import ProviderModal from '../components/ProviderModal';
 
-const Providers = ({ onLogOut, onNavigateToProducts, onNavigateToBrands }) => {
+const Providers = ({ onLogOut, onNavigateToProducts, onNavigateToBrands, userInfo }) => {
     const [providers, setProviders] = useState([]);
     const [filteredProviders, setFilteredProviders] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -119,6 +119,7 @@ const Providers = ({ onLogOut, onNavigateToProducts, onNavigateToBrands }) => {
                 onNavigateToProviders={() => { }}
                 currentPage="providers"
             />
+            {userInfo && <span className="text-gray-600" style={{ display: 'none' }}>Bienvenido, {String(userInfo.userType || 'Usuario')}</span>}
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="mb-8">

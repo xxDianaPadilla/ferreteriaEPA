@@ -3,7 +3,7 @@ import { Plus, Search, Package, AlertCircle } from 'lucide-react';
 import ProductCard from "../components/ProductCard";
 import Header from '../components/Header';
 
-const Products = ({ onLogOut, onNavigateToBrands, onNavigateToProviders }) => {
+const Products = ({ onLogOut, onNavigateToBrands, onNavigateToProviders, userInfo }) => {
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -195,9 +195,15 @@ const Products = ({ onLogOut, onNavigateToBrands, onNavigateToProviders }) => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Header onLogOut={onLogOut} onNavigateToProducts={() => {}} onNavigateToBrands={(onNavigateToBrands)} onNavigateToProviders={onNavigateToProviders} currentPage={"products"}/>
+            <Header onLogOut={onLogOut} onNavigateToProducts={() => { }} onNavigateToBrands={(onNavigateToBrands)} onNavigateToProviders={onNavigateToProviders} currentPage={"products"} />
+            {userInfo && <span className="text-gray-600" style={{ display: 'none' }}>Bienvenido, {String(userInfo.userType || 'Usuario')}</span>}
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div>
+                    <h1 className="text-3xl font-bold text-gray-900">Productos</h1>
+                    <p className="mt-2 text-gray-600">Gestiona los productos de tu ferretería</p>
+                </div>
+                <br />
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
                     <div className="flex-1 relative">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />

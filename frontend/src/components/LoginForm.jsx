@@ -46,27 +46,26 @@ const LoginForm = ({onSwitchToRegister, onLoginSuccess}) => {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:4000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-                body: JSON.stringify(formData),
-            });
+          const response = await fetch('http://localhost:4000/api/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify(formData),
+          });
 
-            const data = await response.json();
+          const data = await response.json();
 
-            if(response.ok){
-                alert('Login exitoso');
-                onLoginSuccess();
-            }else{
-                alert(data.message || 'Credenciales incorrectas');
-            }
+          if(response.ok){
+            alert('Login exitoso');
+            onLoginSuccess();
+          }else{
+            alert(data.message || 'Credenciales incorrectas');
+          }
         } catch (error) {
             console.error('Error: ', error);
             alert('Error de conexión con el servidor');
-        }finally{
             setLoading(false);
         }
     };
