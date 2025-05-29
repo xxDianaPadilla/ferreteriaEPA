@@ -6,7 +6,7 @@ import Brands from './pages/Brands';
 import Providers from './pages/Providers';
 
 function App() {
-  const [currentView, setCurrentView] = useState('login');
+  const [currentView, setCurrentView] = useState('register');
   const [userInfo, setUserInfo] = useState(null);
 
   const handleSwitchToLogin = () => {
@@ -39,17 +39,6 @@ function App() {
 
   const handleNavigateToProviders = () => {
     setCurrentView('providers');
-  }
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Verificando sesión...</p>
-        </div>
-      </div>
-    );
   }
 
   switch (currentView) {
