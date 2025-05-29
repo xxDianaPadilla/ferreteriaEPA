@@ -60,7 +60,7 @@ const RegisterForm = ({onSwitchToLogin, onRegisterSuccess}) => {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:4000/api/registerClients', {
+            const response = await fetch('https://ferreteriaepa.onrender.com/api/registerClients', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

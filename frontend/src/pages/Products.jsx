@@ -28,7 +28,7 @@ const Products = ({ onLogOut, onNavigateToBrands, onNavigateToProviders, userInf
     const fetchProducts = async () => {
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:4000/api/products');
+            const response = await fetch('https://ferreteriaepa.onrender.com/api/products');
             if (!response.ok) {
                 throw new Error('Error al cargar productos');
             }
@@ -60,7 +60,7 @@ const Products = ({ onLogOut, onNavigateToBrands, onNavigateToProviders, userInf
                 formDataToSend.append('image', formData.image);
             }
 
-            const response = await fetch('http://localhost:4000/api/products', {
+            const response = await fetch('https://ferreteriaepa.onrender.com/api/products', {
                 method: 'POST',
                 body: formDataToSend,
             });
@@ -97,7 +97,7 @@ const Products = ({ onLogOut, onNavigateToBrands, onNavigateToProviders, userInf
                 forDataToSend.append('image', formData.image);
             }
 
-            const response = await fetch(`http://localhost:4000/api/products/${editingProduct._id}`, {
+            const response = await fetch(`https://ferreteriaepa.onrender.com/api/products/${editingProduct._id}`, {
                 method: 'PUT',
                 body: forDataToSend,
             });
@@ -118,7 +118,7 @@ const Products = ({ onLogOut, onNavigateToBrands, onNavigateToProviders, userInf
 
     const handleDeleteProduct = async (productId) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/products/${productId}`, {
+            const response = await fetch(`https://ferreteriaepa.onrender.com/api/products/${productId}`, {
                 method: 'DELETE',
             });
 

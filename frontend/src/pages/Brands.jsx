@@ -13,7 +13,7 @@ const Brands = ({ onLogOut, onNavigateToProducts, onNavigateToProviders, userInf
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const API_BASE_URL = 'http://localhost:4000/api/brands';
+    const API_BASE_URL = 'https://ferreteriaepa.onrender.com/api/brands';
 
     useEffect(() => {
         fetchBrands();

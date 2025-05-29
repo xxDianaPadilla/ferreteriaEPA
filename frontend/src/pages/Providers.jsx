@@ -28,7 +28,7 @@ const Providers = ({ onLogOut, onNavigateToProducts, onNavigateToBrands, userInf
     const fetchProviders = async () => {
         try {
             setIsLoading(true);
-            const response = await fetch('http://localhost:4000/api/providers');
+            const response = await fetch('https://ferreteriaepa.onrender.com/api/providers');
             if (!response.ok) {
                 throw new Error('Error al cargar proveedores');
             }
@@ -46,7 +46,7 @@ const Providers = ({ onLogOut, onNavigateToProducts, onNavigateToBrands, userInf
 
     const handleSaveProvider = async (formData, providerId = null) => {
         try {
-            const url = providerId ? `http://localhost:4000/api/providers/${providerId}` : 'http://localhost:4000/api/providers';
+            const url = providerId ? `https://ferreteriaepa.onrender.com/api/providers/${providerId}` : 'https://ferreteriaepa.onrender.com/api/providers';
             const method = providerId ? 'PUT' : 'POST';
 
             const response = await fetch(url, {
@@ -84,7 +84,7 @@ const Providers = ({ onLogOut, onNavigateToProducts, onNavigateToBrands, userInf
     const handleDeleteProvider = async (providerId) => {
         if (window.confirm('¿Estás seguro de que deseas eliminar este proveedor?')) {
             try {
-                const response = await fetch(`http://localhost:4000/api/providers/${providerId}`, {
+                const response = await fetch(`https://ferreteriaepa.onrender.com/api/providers/${providerId}`, {
                     method: 'DELETE'
                 });
 
