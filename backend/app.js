@@ -19,7 +19,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: "ferreteria-epa-diana.vercel.app",
+        origin: "https://ferreteria-epa-diana.vercel.app/",
         credentials: true
     })
 );
