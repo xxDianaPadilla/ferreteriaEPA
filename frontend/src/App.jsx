@@ -14,7 +14,7 @@ function App() {
   const checkAuthStatus = async () => {
     try {
       console.log('Verificando estado de autenticación');
-      const response = await fetch('http://localhost:4000/api/verify-auth', {
+      const response = await fetch('https://ferreteriaepa.onrender.com/api/verify-auth', {
         method: 'GET',
         credentials: 'include',
       });
@@ -65,7 +65,7 @@ function App() {
 
   const handleLogOut = async () => {
     try {
-      await fetch('http://localhost:4000/api/logout', {
+      await fetch('https://ferreteriaepa.onrender.com/api/logout', {
         method: 'POST',
         credentials: 'include',
       });
