@@ -1,0 +1,375 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Documentación para API de Ferreteria EPA",
+    "description": "Hola! esta es mi API para Ferreteria EPA",
+    "contact": {
+      "email": "you@your-company.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/ricaldone-5f7/FerreteriaEPA/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "https://virtserver.swaggerhub.com/exequielmirandarodrg/FerreteriaEPAMERN/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "paths": {
+    "/api/products": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Select from products",
+        "description": "Al utilizar este método devuelve todos los datos de la colección Products",
+        "operationId": "getAllProducts",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Update from product",
+        "description": "Al utilizar este método actualizamos un producto",
+        "operationId": "updateProductById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/api_products_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Insert from product",
+        "description": "Al utilizar este método agregamos un producto nuevo",
+        "operationId": "createNewProduct",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/api_products_body_1"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Delete from product",
+        "description": "Utilizando este método eliminamos un producto",
+        "operationId": "deleteProductById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/branches": {
+      "get": {
+        "tags": [
+          "Brand"
+        ],
+        "summary": "Select from branches",
+        "description": "Al utilizar este método devuelve todos los datos de la colección Branches",
+        "operationId": "get-api-branches",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Brand"
+        ],
+        "summary": "Update from branches",
+        "description": "Al utilizar este método actualizamos una sucursal",
+        "operationId": "put-api-branches",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api_branches_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Brand"
+        ],
+        "summary": "Insert from branches",
+        "description": "Al utilizar este método agregamos una sucursal nueva",
+        "operationId": "post-api-branches",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api_branches_body_1"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Brand"
+        ],
+        "summary": "Delete from branches",
+        "description": "Utilizando este método eliminamos una sucursal",
+        "operationId": "delete-api-branches",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "api_products_body": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "pnjq6bzxx5t20"
+            }
+          },
+          "description": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "lzjrjzs8qwdw2"
+            }
+          },
+          "price": {
+            "maximum": 500,
+            "minimum": 0.1,
+            "type": "number",
+            "x-stoplight": {
+              "id": "2dx8t22gz4hc1"
+            }
+          },
+          "stock": {
+            "maximum": 500,
+            "minimum": 1,
+            "type": "number",
+            "x-stoplight": {
+              "id": "seb05h0mc17v7"
+            }
+          },
+          "image": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "r9qby2mydcoko"
+            }
+          }
+        }
+      },
+      "api_products_body_1": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "3v1auj4rmbkcv"
+            }
+          },
+          "description": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "0wjtnkthh8lrm"
+            }
+          },
+          "price": {
+            "maximum": 500,
+            "minimum": 0.1,
+            "type": "number",
+            "x-stoplight": {
+              "id": "ofc1kw3giu7qd"
+            }
+          },
+          "stock": {
+            "maximum": 500,
+            "minimum": 1,
+            "type": "number",
+            "x-stoplight": {
+              "id": "4sztpgzetle37"
+            }
+          },
+          "image": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "pedwyguyvtpt5"
+            }
+          }
+        }
+      },
+      "api_branches_body": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "jn5la1bl2x8tr"
+            }
+          },
+          "address": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "dydb0jokfskp3"
+            }
+          },
+          "telephone": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "bwmfqisrtmsqt"
+            }
+          },
+          "schedule": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "9d696gp7w2tdq"
+            }
+          }
+        }
+      },
+      "api_branches_body_1": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "f340j5q3cvjj5"
+            }
+          },
+          "address": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "1elx2mrersw7o"
+            }
+          },
+          "telephone": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "k8b4wrf114fis"
+            }
+          },
+          "schedule": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "8lpvqvoz24wy5"
+            }
+          }
+        }
+      }
+    }
+  }
+}

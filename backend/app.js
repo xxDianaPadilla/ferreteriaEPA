@@ -14,7 +14,12 @@ import brandsRoutes from "./src/routes/brands.js";
 import cookieParser from "cookie-parser";
 import authRoutes from './src/routes/authRoutes.js';
 import faqsRoutes from './src/routes/faqsRoutes.js';
+import claimsRoutes from "./src/routes/claims.js";
 import cors from "cors";
+
+import swaggerUi from "swagger-ui-express";
+import fs from "fs";
+import path from 'path';
 
 const app = express();
 
@@ -27,6 +32,12 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
+
+const swaggerDocument = JSON.parse(
+    fs.readFileSync(path.resolve("./ferreteriaEPA.json"), "utf-8")
+);
+
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/api/products", productsRoutes);
 app.use("/api/clients", clientsRoutes);
@@ -41,5 +52,6 @@ app.use("/api/providers", providersRoutes);
 app.use("/api/brands", brandsRoutes);
 app.use("/api", authRoutes);
 app.use("/api/faqs", faqsRoutes);
+app.use("/api/claims", claimsRoutes);
 
 export default app;
